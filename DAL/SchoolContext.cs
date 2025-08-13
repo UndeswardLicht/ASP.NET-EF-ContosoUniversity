@@ -24,12 +24,12 @@ namespace ContosoUniversity.DAL
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {
             modelBuilder.Conventions.Remove<PluralizingTableNameConvention>();
-
             modelBuilder.Entity<Course>()
                 .HasMany(c => c.Instructors).WithMany(i => i.Courses)
                 .Map(t => t.MapLeftKey("CourseID")
-                .MapRightKey("InstructorID")
-                .ToTable("CourseInstructor"));
+                    .MapRightKey("InstructorID")
+                    .ToTable("CourseInstructor"));
+            modelBuilder.Entity<Department>().MapToStoredProcedures();
 
             //following FLuent API Statement can be used instead of attributes
             //to specify the one-to-zero-or-one relationship between
